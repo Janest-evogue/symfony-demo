@@ -1,0 +1,9 @@
+{# http/flashed.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# affichage du message flash #}
+    {% for message in app.session.flashbag.get('success') %}
+        {{ dump(message) }}
+    {% endfor %}
+{% endblock %}

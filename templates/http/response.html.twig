@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>Contenu de response.html.twig</p>
+    
+    <p>
+        {# construction du lien à partir du nom de la route #}
+        <a href="{{ path('app_http_index') }}">
+            Vers l'index d'HttpController
+        </a>
+    </p>
+    
+    <p>
+        {# construction du lien avec un paramètre #}
+        <a href="{{ path('app_index_bonjour', {qui: "toi"}) }}">
+            Vers la méthode bonjour() d'IndexController
+        </a>
+    </p>
+{% endblock %}
