@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,7 +48,18 @@ class User
      */
     private $birthdate;
 
+    /**
+     * Une classe que l'on peut utiliser comme un tableau
+     * @var ArrayCollection
+     */
+    private $publications;
 
+    public function __construct()
+    {
+        // on initialise avec un ArrayCollection vide
+        $this->publications = new ArrayCollection();
+    }
+    
     public function getId()
     {
         return $this->id;
@@ -86,6 +98,15 @@ class User
 
     public function setBirthdate(\Datetime $birthdate) {
         $this->birthdate = $birthdate;
+        return $this;
+    }
+
+    public function getPublications(): ArrayCollection {
+        return $this->publications;
+    }
+
+    public function setPublications(ArrayCollection $publications) {
+        $this->publications = $publications;
         return $this;
     }
 

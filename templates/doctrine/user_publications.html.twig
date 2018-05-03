@@ -1,0 +1,14 @@
+{# doctrine/user_publications.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>{{ user.firstname }} {{ user.lastname }}</p>
+    <table>
+        <caption>Publications</caption>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Contenu</th>
+        </tr>
+    </table>
+{% endblock %}
