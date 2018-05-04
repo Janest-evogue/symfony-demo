@@ -1,0 +1,34 @@
+{# doctrine/user_with_publication.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form method="post">
+        <div>
+            <label>Nom</label>
+            <input type="text" name="lastname">
+        </div>
+        <div>
+            <label>Prénom</label>
+            <input type="text" name="firstname">
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" name="email">
+        </div>
+        <div>
+            <label>Date de naissance</label>
+            <input type="text" name="birthdate">
+        </div>
+        <div>
+            <label>Titre de la publication</label>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <label>Contenu de la publication</label>
+            <textarea name="content"></textarea>
+        </div>
+        <div>
+            <button type="submit">Enregistrer</button>
+        </div>
+    </form>
+{% endblock %}

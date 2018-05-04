@@ -10,5 +10,12 @@
             <th>Titre</th>
             <th>Contenu</th>
         </tr>
+        {% for publication in user.publications %}
+            <tr>
+                <td>{{ publication.id }}</td>
+                <td>{{ publication.title }}</td>
+                <td>{{ publication.content }}</td>
+            </tr>
+        {% endfor %}
     </table>
 {% endblock %}

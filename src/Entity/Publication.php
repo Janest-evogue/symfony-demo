@@ -28,9 +28,12 @@ class Publication
     
     /**
      * @var User
-     * // clé étrangère vers user
-     * @ORM\ManyToOne(targetEntity="User")
-     * // non null
+     * clé étrangère vers user
+     * inversedBy doit être ajouté quand on a ajouté
+     * un OneToMany (facultatif)
+     * dans la classe User sur l'attribut publications
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="publications")
+     * non null
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;

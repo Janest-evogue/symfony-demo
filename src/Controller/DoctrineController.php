@@ -191,11 +191,59 @@ class DoctrineController extends Controller
      */
     public function userPublications(User $user)
     {
+        // en demandant le contenu de l'attribut $publications
+        // d'un objet User, Doctrine va automatiquement
+        // faire une requête en bdd
+        // pour y mettre les publications liées à cet utilisateur
+        // grâce à l'annotation @ORM\OneToMany sur
+        // l'attribut dans la classe
+        
         return $this->render(
             'doctrine/user_publications.html.twig',
             [
                 'user' => $user
             ]
+        );
+    }
+    
+    /**
+     * 
+     * @Route("/user-with-publication")
+     */
+    public function userWithPublication(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            $user = new User();
+            $user
+                ->setLastname($data['lastname'])
+                ->setFirstname($data['firstname'])
+                ->setEmail($data['email'])
+                ->setBirthdate(new \DateTime($data['birthdate']))
+            ;
+            
+            $publication = new Publication();
+            
+            $publication
+                ->setTitle($data['title'])
+                ->setContent($data['content'])
+            ;
+            
+            $user->addPublication($publication);
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            // grâce à cascade={"persist"} ajouté dans
+            // l'annotation OneToMany sur l'attribut $publications
+            // de la classe User plus besoin d'appeler la méthode persist()
+            // sur la publication pour qu'elle soit enregistrée en bdd
+            
+            //$em->persist($publication);
+            $em->flush();
+        }
+        
+        return $this->render(
+            'doctrine/user_with_publication.html.twig'
         );
     }
 }

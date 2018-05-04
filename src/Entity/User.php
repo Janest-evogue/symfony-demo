@@ -51,6 +51,11 @@ class User
     /**
      * Une classe que l'on peut utiliser comme un tableau
      * @var ArrayCollection
+     * OneToMany (facultatif) permet de pouvoir accéder aux publications
+     * d'un utilisateur depuis un objet User dans cet attribut
+     * mappedBy dit quel attribut dans Publication correspond à la clé
+     * étrangère (L'attribut avec un ManyToOne vers cette classe)
+     * @ORM\OneToMany(targetEntity="Publication", mappedBy="author", cascade={"persist"})
      */
     private $publications;
 
@@ -101,14 +106,25 @@ class User
         return $this;
     }
 
-    public function getPublications(): ArrayCollection {
+    public function getPublications() {
         return $this->publications;
     }
 
-    public function setPublications(ArrayCollection $publications) {
+    public function setPublications($publications) {
         $this->publications = $publications;
         return $this;
     }
 
-
+    public function addPublication(Publication $publication)
+    {
+        // on ajoute la publication à l'utilisateur
+        $this->publications->add($publication);
+        // eq : $this->publications[] = $publication;
+        
+        // on définit l'auteur de la publication avec
+        // l'objet User qui appelle la méthode
+        $publication->setAuthor($this);
+        
+        return $this;
+    }
 }
