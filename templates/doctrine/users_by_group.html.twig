@@ -1,0 +1,23 @@
+{# doctrine/users_by_group.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {#
+    Parce que la classe Group contient
+    une méthode __toString(), on peut directement
+    afficher l'objet
+    C'est ce que retourne cette méthode qui est affiché
+    #}
+    <p>{{ group }}</p>
+    
+    <table>
+        <tr>
+            <th>Utilisateur</th>
+        </tr>
+        {% for user in group.users %}
+            <tr>
+                <td>{{ user }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

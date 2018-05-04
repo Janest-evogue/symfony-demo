@@ -58,11 +58,21 @@ class User
      * @ORM\OneToMany(targetEntity="Publication", mappedBy="author", cascade={"persist"})
      */
     private $publications;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * relation n-n entre user et group
+     * définie sur l'attribut $users de la classe Group
+     * @ORM\ManyToMany(targetEntity="Group", mappedBy="users")
+     */
+    private $groups;
 
     public function __construct()
     {
         // on initialise avec un ArrayCollection vide
         $this->publications = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
     
     public function getId()
@@ -126,5 +136,30 @@ class User
         $publication->setAuthor($this);
         
         return $this;
+    }
+    
+    public function getGroups() {
+        return $this->groups;
+    }
+
+    public function setGroups($groups) {
+        $this->groups = $groups;
+        return $this;
+    }
+
+    public function addGroup(Group $group)
+    {
+        // Comme on ne peut pas appeler la méthode
+        // addUser() de la class Group ici
+        // parce qu'elle appelle cette méthode addGroup()
+        // on ne pourra pas directement enregistrer
+        // le lien entre le groupe et l'utilisateur
+        // en enregistrant l'utilisateur
+        $this->groups->add($group);
+    }
+    
+    public function __toString()
+    {
+        return trim($this->firstname . ' ' . $this->lastname);
     }
 }

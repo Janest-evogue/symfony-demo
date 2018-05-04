@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Group;
 use App\Entity\Publication;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -244,6 +245,19 @@ class DoctrineController extends Controller
         
         return $this->render(
             'doctrine/user_with_publication.html.twig'
+        );
+    }
+    
+    /**
+     * @Route("/users/group/{id}")
+     */
+    public function usersByGroup(Group $group)
+    {
+        return $this->render(
+            'doctrine/users_by_group.html.twig',
+            [
+                'group' => $group
+            ]
         );
     }
 }
